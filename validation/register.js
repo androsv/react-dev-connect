@@ -1,4 +1,4 @@
-const validator = require("validator");
+const Validator = require("validator");
 const isEmpty = require("./is-empty");
 
 module.exports = function validateRegisterInput(data) {
@@ -9,36 +9,36 @@ module.exports = function validateRegisterInput(data) {
   data.password = isEmpty(data.password) ? "" : data.password;
   data.password2 = isEmpty(data.password2) ? "" : data.password2;
 
-  if (!validator.isLength(data.name, { min: 2, max: 50 })) {
-    errors.name = "Name length should be btween 2 and 50";
+  if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
+    errors.name = "Name must be between 2 and 30 characters";
   }
 
-  if (validator.isEmpty(data.name)) {
-    errors.name = "Name is required";
+  if (Validator.isEmpty(data.name)) {
+    errors.name = "Name field is required";
   }
 
-  if (validator.isEmpty(data.email)) {
-    errors.email = "Email is required ";
+  if (Validator.isEmpty(data.email)) {
+    errors.email = "Email field is required";
   }
 
-  if (!validator.isEmail(data.email)) {
-    errors.email = "Email not in correct format";
+  if (!Validator.isEmail(data.email)) {
+    errors.email = "Email is invalid";
   }
 
-  if (validator.isEmpty(data.password)) {
-    errors.password = "Password is required";
+  if (Validator.isEmpty(data.password)) {
+    errors.password = "Password field is required";
   }
 
-  if (!validator.isLength(data.password, { min: 6, max: 30 })) {
-    errors.password = "password should be btween 6 to 30 characters";
+  if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
+    errors.password = "Password must be at least 6 characters";
   }
 
-  if (validator.isEmpty(data.password2)) {
-    errors.password = "Confirm password is required";
+  if (Validator.isEmpty(data.password2)) {
+    errors.password2 = "Confirm Password field is required";
   }
 
-  if (!validator.equals(data.password, data.password2)) {
-    errors.password = "confirm password does not match";
+  if (!Validator.equals(data.password, data.password2)) {
+    errors.password2 = "Passwords must match";
   }
 
   return {
